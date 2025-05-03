@@ -25,6 +25,7 @@
         {
           $_SESSION['id'] = $row['id'];
           $_SESSION['nombre'] = $row['nombre'];
+          $_SESSION['numeroCel'] = $row['numeroCel'];
           $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
           $_SESSION['usuario'] = $row['usuario'];
 
@@ -70,13 +71,13 @@
         <P>
             <label for="usuario" class="label2">Correo electronico</label>
         </P>
-            <input type="email" placeholder="minombre@mirpoyecto.com" class="inputP2" id="usuario">
+            <input type="email" placeholder="minombre@miproyecto.com" class="inputP2" id="usuario">
         <P>
             <label for="password" class="label2">Contraseña</label>
         </P>
             <input type="password" placeholder="Contraseña" class="inputP2" id="password">
             <p id="incorrecto"></p>
-            <button type="button" class="btn2" onclick="ingresar()">Entrar</button>
+            <button type="submit" class="btn2" onclick="ingresar()">Entrar</button>
         <p>
             <a class="aRedireccion" href="/html/registro.html">¿Nuevo aqui? Registrate</a>
         </p>
@@ -87,8 +88,8 @@
     <footer>
         <div class="divfooter">
             <label for="">Acerca de</label><br>
-            <a href="../index.html">Inicio</a><br>
-            <a href="/html/inicioSesion.html">Iniciar sesion</a><br>
+            <a href="./index.php">Inicio</a><br>
+            <a href="./index.php">Iniciar sesion</a><br>
         </div>
         <div class="divfooter">
             <label for="###">Vendedor</label><br>
@@ -106,7 +107,7 @@
         <div class="divfooter">
             <label for="">Cliente</label><br>
             <a href="/html/entregaPedido.html">Datos de entrega</a><br>
-            <a href="/html/registro.html">Registrate</a><br>
+            <a href="./registro.php">Registrate</a><br>
         </div>
     </footer>
     <script src="..//js/proyecto.js"></script>

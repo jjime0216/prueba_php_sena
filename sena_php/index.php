@@ -1,11 +1,10 @@
 <?php
-
     require "conexion.php";
+    
+session_start();
 
-    session_start();
-
-  if($_POST)
-  {
+    if($_POST)
+    { 
 
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
@@ -14,32 +13,33 @@
     //echo $sql;
     $resultado = $mysqli->query($sql);
     $num = $resultado->num_rows;
+    
     if($num>0)
+    {
+      $row = $resultado->fetch_assoc();
+      $password_bd = $row['password'];
+
+      $pass_c = sha1($password);
+
+      if($password_bd == $pass_c)
       {
-        $row = $resultado->fetch_assoc();
-        $password_bd = $row['password'];
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['nombre'] = $row['nombre'];
+        $_SESSION['numeroCel'] = $row['numeroCel'];
+        $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
+        $_SESSION['usuario'] = $row['usuario'];
 
-        $pass_c = sha1($password);
-
-        if($password_bd == $pass_c)
+        if($row['tipo_usuario']==1)
         {
-          $_SESSION['id'] = $row['id'];
-          $_SESSION['nombre'] = $row['nombre'];
-          $_SESSION['numeroCel'] = $row['numeroCel'];
-          $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
-          $_SESSION['usuario'] = $row['usuario'];
-
-          if($row['tipo_usuario']==1)
-          {
-            // header("Location: code/usuarios/adduser.php");
-            header("Location: access.php");
-          }
-          elseif($row['tipo_usuario']==2)
-          {
-            header("Location: access.php");
-            }
+          header("Location: access.php");
+        }
+        elseif($row['tipo_usuario']==1)
+        {
+          header("Location: access.php");
+        }
         else
           {
+            
             header("Location: index.php");
           }
         }else
@@ -49,7 +49,7 @@
       }else
       {
         echo "NO existe usuario";
-      }
+    }
 }
 ?>
 
@@ -67,19 +67,19 @@
         <h3>My project</h3>
         <h1>Inicio de sesion</h1>
     </header>
-    <form action="" class="form1">
+    <form class="form1" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
         <P>
             <label for="usuario" class="label2">Correo electronico</label>
         </P>
-            <input type="email" placeholder="minombre@miproyecto.com" class="inputP2" id="usuario">
+            <input type="email" placeholder="minombre@miproyecto.com" class="inputP2" id="usuario" name="usuario">
         <P>
             <label for="password" class="label2">Contraseña</label>
         </P>
-            <input type="password" placeholder="Contraseña" class="inputP2" id="password">
+            <input type="password" placeholder="Contraseña" class="inputP2" id="password" name="password">
             <p id="incorrecto"></p>
             <button type="submit" class="btn2" onclick="ingresar()">Entrar</button>
         <p>
-            <a class="aRedireccion" href="/html/registro.html">¿Nuevo aqui? Registrate</a>
+            <a class="a2" href="./registro.php">¿Nuevo aqui? Registrate</a>
         </p>
     </form>
     
